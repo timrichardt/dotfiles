@@ -8,4 +8,6 @@ feh --bg-scale .background1.png
 
 setxkbmap de
 
+redshift &
+
 xmonad
