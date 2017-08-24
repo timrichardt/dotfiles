@@ -3,6 +3,7 @@
 (require 'cal-iso)
 (require 'org)
 (require 'org-habit)
+(require 'org-caldav)
 (require 'solar)
 (require 'weather-metno)
 
@@ -34,7 +35,8 @@
       org-directory                    "~/org/"
       org-default-notes-file           (concat org-directory "notes.org")
       org-agenda-files                 `(,org-default-notes-file
-					 ,(concat org-directory "geburtstage.org"))
+					 ,(concat org-directory "geburtstage.org")
+					 ,(concat org-directory "caldav.org"))
       org-agenda-format-date           'format-date-german
       org-agenda-restore-windows-after-quit t
       org-agenda-window-setup          'reorganize-frame
@@ -52,6 +54,11 @@
 					 "Überfällig:")
       org-agenda-todo-ignore-deadlines t
       org-agenda-todo-ignore-scheduled t
+
+      org-caldav-url                   "https://caldav.plskthx.org/caldav.php/tim"
+      org-caldav-calendar-id           "calendar" 
+      org-caldav-inbox                 "~/org/caldav.org"
+      org-caldav-files                 '("~/org/caldav.org")
       
       org-habit-graph-column           32
       org-habit-preceding-days         42
