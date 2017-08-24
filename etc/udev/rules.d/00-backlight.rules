@@ -1,0 +1,1 @@
+SUBSYSTEM=="backlight",  KERNEL=="intel_backlight", ACTION=="add", RUN+="/bin/chgrp users %S%p/brightness", RUN+="/bin/chmod 664 %S%p/brightness"

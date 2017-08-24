@@ -1,0 +1,5 @@
+"echo $(expr $(cat /sys/class/backlight/intel_backlight/actual_brightness) + 53) > /sys/class/backlight/intel_backlight/brightness"
+    XF86MonBrightnessUp
+
+"echo $(expr $(cat /sys/class/backlight/intel_backlight/actual_brightness) - 53) > /sys/class/backlight/intel_backlight/brightness"
+    XF86MonBrightnessDown

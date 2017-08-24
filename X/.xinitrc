@@ -4,7 +4,7 @@ xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
 
 xrdb .Xresources
 
-feh --bg-scale .background1.png
+feh --bg-center ~/.wallpaper/monument_valley_wallpaper_1920x1080.png
 
 setxkbmap de
 
