@@ -1,12 +1,16 @@
 (provide 'lisp)
 (require 'util)
 (require 'paredit)
+(require 'aggressive-indent)
+
+(require 'slime-autoloads)
+
 (require 'clojure-mode)
 (require 'inf-clojure)
 (require 'cider)
 (require 'cl)
 (require 'clj-refactor)
-(require 'aggressive-indent)
+
 
 (extend-mode-map paredit-mode-map
   "C-f"         'forward-sexp
@@ -63,6 +67,23 @@ collection or symbol is at an extreme position, returns nil."
 				  (enable-paredit-mode)
 				  (rainbow-delimiters-mode)
 				  (show-paren-mode)))
+
+
+;; --------------------
+;; Common Lisp
+
+(setq inferior-lisp-program "/usr/bin/sbcl")
+
+(add-to-list 'slime-contribs 'slime-fancy)
+
+(add-hook 'slime-mode-hook (lambda ()
+			     (aggressive-indent-mode)
+			     (enable-paredit-mode)
+			     (rainbow-delimiters-mode)
+			     (show-paren-mode)))
+
+(add-hook 'slime-repl-mode-hook (lambda ()
+				  (enable-paredit-mode)))
 
 ;; --------------------
 ;; Clojure
