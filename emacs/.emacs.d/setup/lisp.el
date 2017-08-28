@@ -2,9 +2,7 @@
 (require 'util)
 (require 'paredit)
 (require 'aggressive-indent)
-
 (require 'slime-autoloads)
-
 (require 'clojure-mode)
 (require 'inf-clojure)
 (require 'cider)
@@ -71,6 +69,8 @@ collection or symbol is at an extreme position, returns nil."
 
 ;; --------------------
 ;; Common Lisp
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
 

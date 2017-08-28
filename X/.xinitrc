@@ -17,6 +17,8 @@ setxkbmap de
 
 redshift &
 
+# xmonad
 xmonad
 
 # stumpwm
+# /usr/bin/sbcl --load ~/.stumpwm.d/init.lisp
