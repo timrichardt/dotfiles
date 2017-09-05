@@ -3,3 +3,15 @@
 
 "echo $(expr $(cat /sys/class/backlight/intel_backlight/actual_brightness) - 53) > /sys/class/backlight/intel_backlight/brightness"
     XF86MonBrightnessDown
+
+"amixer -q -D pulse sset 'Master',0 toggle"
+    XF86AudioMute
+
+"amixer -q sset 'Capture' toggle"
+    XF86AudioMicMute
+
+"amixer -q -D pulse sset 'Master',0 10%+"
+    XF86AudioRaiseVolume
+
+"amixer -q -D pulse sset 'Master',0 10%-"
+    XF86AudioLowerVolume
