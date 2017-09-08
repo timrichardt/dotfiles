@@ -1,9 +1,14 @@
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+
+sudo modprobe -r psmouse
+sudo modprobe psmouse proto=bare
+
+# xinput set-prop "TPPS/2 IBM TrackPoint" "libinput Button Scrolling Button" 2
 
 # disable touchpad on X1 Carbon (Gen 5)
-xinput disable 11
+# xinput disable 11
 
 xmodmap ~/.Xmodmap
 
