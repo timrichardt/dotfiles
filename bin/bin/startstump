@@ -1,2 +1,1 @@
-(require :stumpwm)
-(stumpwm:stumpwm)
+/usr/bin/sbcl --eval "(require :stumpwm) (stumpwm:stumpwm)"

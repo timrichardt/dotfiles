@@ -2,7 +2,7 @@
 ;;
 ;; Here is a sample .stumpwmrc file
 
-(in-package :stumpwm)
+;; (in-package :stumpwm)
 
 (require :swank)
 
