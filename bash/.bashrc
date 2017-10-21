@@ -13,7 +13,7 @@ alias lart='lla -rt'
 
 alias ..='cd ..'
 
-PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/bin:/home/tim/.cargo/bin
 
 PS1='\u@\h:\w> '
 

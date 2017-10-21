@@ -11,13 +11,11 @@
 # disable touchpad on X1 Carbon (Gen 5)
 xinput disable 11
 
-xmodmap ~/.Xmodmap
-
 xbindkeys
 
 xrdb .Xresources
 
-feh --bg-center ~/.wallpaper/monument_valley_wallpaper_1920x1080.png
+feh --bg-center ~/.wallpaper/iontriangle1.png
 
 setxkbmap de
 
@@ -28,3 +26,6 @@ xmonad
 
 # stumpwm
 # startstump
+# stumpwm
+
+# xmodmap /home/tim/.Xmodmap

@@ -88,6 +88,14 @@ collection or symbol is at an extreme position, returns nil."
 ;; --------------------
 ;; Clojure
 
+(setq cider-prompt-for-symbol        nil
+      cider-repl-use-pretty-printing t
+      cider-repl-history-file        "~/.cider-repl-history"
+      cider-cljs-lein-repl           "(do (require 'figwheel-sidecar.repl-api)
+                                         (figwheel-sidecar.repl-api/start-figwheel!)
+                                         (figwheel-sidecar.repl-api/cljs-repl))"
+      inf-clojure-program            "lumo -d")
+
 (add-hook 'clojure-mode-hook
 	  (lambda ()
 	    (aggressive-indent-mode)
@@ -101,13 +109,5 @@ collection or symbol is at an extreme position, returns nil."
 	  (lambda ()
 	    (enable-paredit-mode)
 	    (rainbow-delimiters-mode)))
-
-(setq cider-prompt-for-symbol        nil
-      cider-repl-use-pretty-printing t
-      cider-repl-history-file        "~/.cider-repl-history"
-      cider-cljs-lein-repl           "(do (require 'figwheel-sidecar.repl-api)
-                                         (figwheel-sidecar.repl-api/start-figwheel!)
-                                         (figwheel-sidecar.repl-api/cljs-repl))"
-      inf-clojure-program            "lumo -d")
 
 (put 'define-component 'clojure-backtracking-indent '(4 4 (2)))

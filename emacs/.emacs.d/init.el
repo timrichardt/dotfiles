@@ -56,6 +56,7 @@
 (defvar setups
   '("global"
     "lisp"
+    "rust"
     "secretary"))
 
 (defun load-setup
@@ -72,11 +73,25 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (aggressive-indent smex inf-clojure weather-metno ido-yes-or-no ido-at-point flx-ido ido-ubiquitous ido-vertical-mode undo-tree subatomic-theme rainbow-delimiters org-agenda-property magit dash-functional clj-refactor alect-themes))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+   '(aggressive-indent
+     smex
+     inf-clojure
+     weather-metno
+     ido-yes-or-no
+     ido-at-point
+     flx-ido
+     ido-ubiquitous
+     ido-vertical-mode
+     undo-tree
+     subatomic-theme
+     rainbow-delimiters
+     org-agenda-property
+     magit
+     dash-functional
+     clj-refactor
+     alect-themes)))
+
+;; Mitigate Bug#28350 (security) in Emacs 25.2 and earlier.
+(eval-after-load "enriched"
+  '(defun enriched-decode-display-prop (start end &optional param)
+     (list start end)))
