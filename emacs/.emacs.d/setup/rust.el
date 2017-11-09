@@ -2,7 +2,7 @@
 (require 'racer)
 
 (extend-mode-map rust-mode-map
-  "<C-M-tab>" 'rust-format-buffer)
+  "C-M-ö" 'rust-format-buffer)
 
 ;; > rustup default stable
 ;; > cargo install racer
