@@ -8,7 +8,8 @@
 (require 'cider)
 (require 'cl)
 (require 'clj-refactor)
-
+(require 'auto-complete)
+(require 'ac-cider)
 
 (extend-mode-map paredit-mode-map
   "C-f"         'forward-sexp
@@ -88,6 +89,11 @@ collection or symbol is at an extreme position, returns nil."
 ;; --------------------
 ;; Clojure
 
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+     (add-to-list 'ac-modes 'cider-repl-mode)))
+
 (setq cider-prompt-for-symbol        nil
       cider-repl-use-pretty-printing t
       cider-repl-history-file        "~/.cider-repl-history"
@@ -105,9 +111,17 @@ collection or symbol is at an extreme position, returns nil."
 	    (clj-refactor-mode 1)
 	    (cljr-add-keybindings-with-prefix "C-c C-m")))
 
+(add-hook 'cider-mode-hook
+	  (lambda ()
+	    (auto-complete-mode)
+	    (ac-flyspell-workaround)
+	    (ac-cider-setup)))
+
 (add-hook 'cider-repl-mode-hook
 	  (lambda ()
 	    (enable-paredit-mode)
-	    (rainbow-delimiters-mode)))
+	    (rainbow-delimiters-mode)
+	    (auto-complete-mode)
+	    (ac-cider-setup)))
 
 (put 'define-component 'clojure-backtracking-indent '(4 4 (2)))
