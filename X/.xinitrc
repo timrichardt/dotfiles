@@ -24,6 +24,7 @@ redshift &
 # No acceleration for TrackPoint
 xinput --set-prop 12 'libinput Accel Speed' 0
 xinput --set-prop 12 'libinput Accel Profile Enabled' 0, 0
+xinput --set-prop 12 'libinput Accel Profile Enabled Default' 0, 0
 
 # xmonad
 xmonad

@@ -13,10 +13,12 @@ alias lart='lla -rt'
 
 alias ..='cd ..'
 
-PATH=$PATH:$HOME/bin:/home/tim/.cargo/bin
+# Go
+GOPATH=$HOME/.go
+
+PATH=$PATH:$HOME/bin:$HOME/.cargo/bin:§HOME/.go/bin
 
 PS1='\u@\h:\w> '
-
 
 # ssh-agent
 
