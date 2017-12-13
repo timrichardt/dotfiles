@@ -6,6 +6,7 @@
 (require 'org-caldav)
 (require 'solar)
 (require 'weather-metno)
+(require 'org-weather-metno)
 
 (extend-mode-map global-map
   "C-c c" 'org-capture
@@ -36,17 +37,24 @@
       org-default-notes-file           (concat org-directory "notes.org")
       org-agenda-files                 `(,org-default-notes-file
 					 ,(concat org-directory "geburtstage.org")
-					 ,(concat org-directory "caldav.org"))
+					 ,(concat org-directory "caldav.org")
+					 ,(concat org-directory "habits.org")
+					 ,(concat org-directory "34c3.org"))
       org-agenda-format-date           'format-date-german
       org-agenda-restore-windows-after-quit t
       org-agenda-window-setup          'reorganize-frame
-
+      org-agenda-custom-commands       '(("c" "Agenda"
+					  ((agenda "")
+					   (alltodo))))
+      org-agenda-start-day             "-1d"
+      org-agenda-span                  4
+      org-agenda-start-on-weekday      nil
       org-agenda-auto-exclude-function nil
-      org-use-tag-inheritance           nil
+      org-use-tag-inheritance          nil
       org-agenda-time-grid             '((daily today require-timed remove-match)
-					 #("----------------" 0 16
-					   (org-heading t))
-					 (800 1000 1200 1400 1600 1800 2000))
+      					 (600 800 1000 1200 1400 1600 1800 2000 2200)
+      					 "     "
+      					 "----------------")
       org-agenda-deadline-leaders      '("Deadline:  "
 					 "+%d Tage:   "
 					 "Überfällig:")
@@ -68,6 +76,31 @@
       org-habit-completed-glyph        ?+
       org-habit-today-glyph            ?!)
 
+(defun org-caldav-url-dav-get-properties (url property)
+  "Retrieve PROPERTY from URL.
+Output is the same as `url-dav-get-properties'.  This switches to
+OAuth2 if necessary."
+  (let ((request-data (concat "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n"
+			      "<DAV:propfind xmlns:DAV='DAV:'>\n<DAV:prop>"
+			      "<DAV:" property "/></DAV:prop></DAV:propfind>\n"))
+	(extra '(("Depth" . "1") ("Content-type" . "text/xml"))))
+    (let ((resultbuf (org-caldav-url-retrieve-synchronously
+		      url "PROPFIND" request-data extra)))
+      (org-caldav-namespace-bug-workaround resultbuf)
+      ;; HACK: remove DAV:responses with empty properties
+      (with-current-buffer resultbuf
+        (save-excursion
+          (while (re-search-forward "<DAV:response>" nil t)
+            (let ((begin (point))
+                  (end (progn (re-search-forward "</DAV:response>" nil t) (+ (point) 15))))
+              (when (and begin end)
+                (goto-char begin)
+                (if (and (re-search-forward "<DAV:prop/>" nil t) (< (point) end))
+                    (progn
+                      (goto-char end)
+                      (delete-region begin end))
+                  (goto-char end)))))))
+      (url-dav-process-response resultbuf url))))
 
 (add-to-list 'org-modules 'org-habits)
 
@@ -98,6 +131,24 @@
 ;; --------------------
 ;; Weather Metno
 
+(defun diary-sunset ()
+  "Local time of sunset as a diary entry.
+The diary entry can contain `%s' which will be replaced with
+`calendar-location-name'."
+  (let ((l (solar-sunrise-sunset date)))
+    (when (cadr l)
+      (concat
+       (if (string= entry "")
+           "Sunset"
+         (format entry (eval calendar-location-name))) " "
+         (solar-time-string (caadr l) nil)))))
+
+
+;; (autoload 'solar-sunrise-sunset "solar.el")
+
+;; (autoload 'solar-time-string "solar.el")
+
+
 (setq weather-metno-location-name      "Berlin"
       weather-metno-location-latitude  calendar-latitude
       weather-metno-location-longitude calendar-longitude
@@ -125,3 +176,39 @@
 						    :select number
 						    :each string-to-number
 						    :max)))
+
+
+;;;###autoload
+(defun org-weather-metno ()
+  "Display weather in diary/‘org-mode’."
+  (unless weather-metno--data
+    (weather-metno-update))
+
+  (let ((l (solar-sunrise-sunset date))
+	(entry "")
+	(query-data (eval `(weather-metno-query
+			    (weather-metno--data nil date)
+			    ,@org-weather-metno-query))))
+    (concat
+     (if query-data
+	 (weather-metno-query-format
+	  org-weather-metno-format
+	  query-data
+	  nil "org-weather-metno--f-" "?")
+       "Keine Wettervorhesage")
+     " "
+     (when (car l)
+       (solar-time-string (caar l) nil)))))
+
+
+(defun diary-sunset ()
+  "Local time of sunset as a diary entry.
+The diary entry can contain `%s' which will be replaced with
+`calendar-location-name'."
+  (let ((l (solar-sunrise-sunset date)))
+    (when (cadr l)
+      (concat
+       (if (string= entry "")
+           "Sonnenuntergang in Berlin"
+         (format entry (eval calendar-location-name))) " "
+         (solar-time-string (caadr l) nil)))))

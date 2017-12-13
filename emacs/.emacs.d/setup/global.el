@@ -8,6 +8,7 @@
 (require 'ido-yes-or-no)
 (require 'tabak-theme)
 (require 'smex)
+(require 'highlight-symbol)
 
 (extend-mode-map (current-global-map)
   "<f12>"   'tabak-toggle
@@ -17,7 +18,9 @@
   "C-M--"   'text-scale-decrease
   "C-M-0"   'text-scale-default
   "<f2>"    'comment-region
-  "C-<f2>"  'uncomment-region)
+  "C-<f2>"  'uncomment-region
+  "<f8>"    'highlight-symbol
+  "<f1>"    'ibuffer)
 
 ;; --------------------
 ;; Movement
