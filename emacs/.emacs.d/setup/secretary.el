@@ -7,6 +7,9 @@
 (require 'solar)
 (require 'weather-metno)
 (require 'org-weather-metno)
+(require 'org-journal)
+(require 'org-bullets)
+
 
 (extend-mode-map global-map
   "C-c c" 'org-capture
@@ -31,6 +34,7 @@
 					"Juni" "Juli" "August" "September"
 					"Oktober" "November" "Dezember"]
       calendar-day-abbrev-array        ["Son" "Mon" "Die" "Mit" "Don" "Fre" "Sbd"]
+      calendar-date-display-form       '(dayname ", der " day ". " monthname " " year)
       solar-n-hemi-seasons             '("Frühlingsanfang" "Sommeranfang"
 					 "Herbstanfang" "Winteranfang")
       org-directory                    "~/org/"
@@ -39,7 +43,8 @@
 					 ,(concat org-directory "geburtstage.org")
 					 ,(concat org-directory "caldav.org")
 					 ,(concat org-directory "habits.org")
-					 ,(concat org-directory "34c3.org"))
+					 ,(concat org-directory "34c3.org")
+					 "/home/tim/science/sbarith/article.org")
       org-agenda-format-date           'format-date-german
       org-agenda-restore-windows-after-quit t
       org-agenda-window-setup          'reorganize-frame
@@ -74,7 +79,22 @@
       org-habit-show-habits-only-for-today t
       org-habit-show-all-today         t
       org-habit-completed-glyph        ?+
-      org-habit-today-glyph            ?!)
+      org-habit-today-glyph            ?!
+
+      org-journal-dir                  "~/org/journal"
+      org-journal-date-format          (lambda (time)
+					 
+					 (concat
+					  org-journal-date-prefix
+					  (calendar-date-string (calendar-current-date)
+								nil))))
+
+
+
+(add-to-list 'org-modules 'org-habits)
+
+(add-hook 'org-mode-hook (lambda ()
+			   (org-bullets-mode 1)))
 
 (defun org-caldav-url-dav-get-properties (url property)
   "Retrieve PROPERTY from URL.
@@ -102,8 +122,6 @@ OAuth2 if necessary."
                   (goto-char end)))))))
       (url-dav-process-response resultbuf url))))
 
-(add-to-list 'org-modules 'org-habits)
-
 (defun format-date-german (date)
   "German date formatting for the agenda	.	For example
     
@@ -130,24 +148,6 @@ OAuth2 if necessary."
 
 ;; --------------------
 ;; Weather Metno
-
-(defun diary-sunset ()
-  "Local time of sunset as a diary entry.
-The diary entry can contain `%s' which will be replaced with
-`calendar-location-name'."
-  (let ((l (solar-sunrise-sunset date)))
-    (when (cadr l)
-      (concat
-       (if (string= entry "")
-           "Sunset"
-         (format entry (eval calendar-location-name))) " "
-         (solar-time-string (caadr l) nil)))))
-
-
-;; (autoload 'solar-sunrise-sunset "solar.el")
-
-;; (autoload 'solar-time-string "solar.el")
-
 
 (setq weather-metno-location-name      "Berlin"
       weather-metno-location-latitude  calendar-latitude
@@ -178,9 +178,9 @@ The diary entry can contain `%s' which will be replaced with
 						    :max)))
 
 
-;;;###autoload
 (defun org-weather-metno ()
-  "Display weather in diary/‘org-mode’."
+  "A replacement for `org-weather-metno`. Displays the weather
+data at the time of sunrise."
   (unless weather-metno--data
     (weather-metno-update))
 
