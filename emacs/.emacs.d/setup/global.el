@@ -9,6 +9,7 @@
 (require 'tabak-theme)
 (require 'smex)
 (require 'highlight-symbol)
+(require 'exec-path-from-shell)
 
 (extend-mode-map (current-global-map)
   "<f12>"   'tabak-toggle
@@ -82,3 +83,10 @@ minor mode."
 (ido-at-point-mode 1)
 (ido-ubiquitous-mode 1)
 (ido-yes-or-no-mode 1)
+
+
+;; --------------------
+;; Use external SSH agent
+
+(exec-path-from-shell-copy-env "SSH_AGENT_PID")
+(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")

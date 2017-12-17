@@ -495,7 +495,7 @@ light."
  `(org-mode-line-clock-overrun
    ,(tabak-face :foreground "gray"))
  `(org-priority
-   ,(tabak-face :foreground "gray"))
+   ,(tabak-face :foreground "blue" :weight 'bold :slant 'italic))
  `(org-property-value
    ,(tabak-face :foreground "gray"))
  `(org-quote
@@ -541,7 +541,7 @@ light."
  `(org-checkbox-statistics-todo
    ,(tabak-face :foreground "gray"))
  `(org-done
-   ,(tabak-face :foreground "gray" :background "background"))
+   ,(tabak-face :foreground "green-l" :weight 'bold :slant 'italic))
  `(org-drawer
    ,(tabak-face :foreground "gray"))
  `(org-ellipsis

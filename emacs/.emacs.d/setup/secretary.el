@@ -40,11 +40,13 @@
       org-directory                    "~/org/"
       org-default-notes-file           (concat org-directory "notes.org")
       org-agenda-files                 `(,org-default-notes-file
-					 ,(concat org-directory "geburtstage.org")
+					 ,(concat org-directory "cron.org")
+					 ;; ,(concat org-directory "geburtstage.org")
 					 ,(concat org-directory "caldav.org")
-					 ,(concat org-directory "habits.org")
+					 ;; ,(concat org-directory "habits.org")
 					 ,(concat org-directory "34c3.org")
-					 "/home/tim/science/sbarith/article.org")
+					 ;; "/home/tim/science/sbarith/article.org"
+					 )
       org-agenda-format-date           'format-date-german
       org-agenda-restore-windows-after-quit t
       org-agenda-window-setup          'reorganize-frame
@@ -57,8 +59,8 @@
       org-agenda-auto-exclude-function nil
       org-use-tag-inheritance          nil
       org-agenda-time-grid             '((daily today require-timed remove-match)
-      					 (600 800 1000 1200 1400 1600 1800 2000 2200)
-      					 "     "
+      					 (600 800 1000 1200 1400 1600 1800 2000 2200 2400)
+					 "      "
       					 "----------------")
       org-agenda-deadline-leaders      '("Deadline:  "
 					 "+%d Tage:   "
@@ -68,6 +70,15 @@
       org-agenda-todo-ignore-deadlines t
       org-agenda-todo-ignore-scheduled t
 
+      org-todo-keywords                '((sequence "DO(d)" "|" "OK(o)")
+					 (sequence "WATCH(w)" "|" "WATCHED(v)")
+					 (sequence "|" "NO(n)"))
+      org-todo-keyword-faces           '(("DO" . org-todo)
+					 ("OK" . org-done)
+					 ("WATCH" . org-priority)
+					 ("WATCHED" . org-done)
+					 ("NO" . org-todo))
+      
       org-caldav-url                   "https://caldav.plskthx.org/caldav.php/tim"
       org-caldav-calendar-id           "calendar" 
       org-caldav-inbox                 "~/org/caldav.org"
