@@ -42,7 +42,7 @@ xK_XF86ScreenSaver       = 0x1008FF2D :: KeySym
 layout = Tall 1 (3/173) (81/173)
          ||| Tall 1 (3/173) (92/173)
          ||| simplestFloat
-         ||| Full
+         ||| noBorders Full
 
 manager = composeAll
              [ className =? "MPlayer"        --> doFloat
@@ -134,7 +134,7 @@ mousemap (XConfig {XMonad.modMask = modMask}) = M.fromList $
     ]
 
 main = xmonad defaultConfig {
-         layoutHook = smartBorders $ layout,
+         layoutHook = avoidStruts $ smartBorders $ layout,
          manageHook = manager,
          -- handleEventHook = (),
          workspaces = map show [1..5],

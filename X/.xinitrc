@@ -9,22 +9,22 @@
 # sudo modprobe psmouse proto=bare
 
 # disable touchpad on X1 Carbon (Gen 5)
-xinput disable 11
+#xinput disable 11
 
 xbindkeys
 
 xrdb .Xresources
 
-feh --bg-center ~/.wallpaper/iontriangle1.png
+#feh --bg-center ~/.wallpaper/iontriangle1.png
 
 setxkbmap de
 
 redshift &
 
 # No acceleration for TrackPoint
-xinput --set-prop 12 'libinput Accel Speed' 0
-xinput --set-prop 12 'libinput Accel Profile Enabled' 0, 0
-xinput --set-prop 12 'libinput Accel Profile Enabled Default' 0, 0
+#xinput --set-prop 12 'libinput Accel Speed' 0
+#xinput --set-prop 12 'libinput Accel Profile Enabled' 0, 0
+#xinput --set-prop 12 'libinput Accel Profile Enabled Default' 0, 0
 
 # xmonad
 xmonad
@@ -34,3 +34,11 @@ xmonad
 # stumpwm
 
 # xmodmap /home/tim/.Xmodmap
+
+# i3
+
+#export XDG_CURRENT_DESKTOP=GNOME-Classic:GNOME
+#export GNOME_SHELL_SESSION_MODE=classic
+#exec gnome-session --session=gnome-classic
+
+# exec mate-session

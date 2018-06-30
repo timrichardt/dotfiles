@@ -1,6 +1,9 @@
 (provide 'util)
 (require 'dash)
 
+;; --------------------
+;; Util
+
 (defun extend-mode-map (mode-map &rest table)
   (declare (indent defun))
   (--> table
