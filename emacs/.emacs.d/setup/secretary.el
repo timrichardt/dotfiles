@@ -45,6 +45,8 @@
 					 ,(concat org-directory "caldav.org")
 					 ;; ,(concat org-directory "habits.org")
 					 ,(concat org-directory "34c3.org")
+					 ,(concat org-directory "termine.org")
+					 "/home/tim/src/privatkopie/README.org"
 					 ;; "/home/tim/science/sbarith/article.org"
 					 )
       org-agenda-format-date           'format-date-german

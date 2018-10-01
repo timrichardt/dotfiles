@@ -45,3 +45,15 @@ alias sharevlc='vlc \
     --screen-width=1920 \
     --screen-height=1000 \
     screen://'
+
+
+export BLOB_STORAGE=:s3
+export S3_BUCKET=blobdb
+export S3_ACCESS_KEY=developmentaccess
+export S3_SECRET_KEY=developmentsecret
+export S3_ENDPOINT="http://localhost:8081"
+export S3_PATH_STYLE_ACCESS=true
+export DATOMIC_CONNECTION_TYPE=:peer
+export DATOMIC_PEER_URL="datomic:dev://localhost:4334/hello" #tests
+export RSS_LOG_LEVEL=debug
+export MBA_NUM_PARALLEL_REQUESTS=2
