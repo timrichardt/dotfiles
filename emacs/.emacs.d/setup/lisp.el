@@ -10,6 +10,7 @@
 (require 'clj-refactor)
 (require 'auto-complete)
 (require 'ac-cider)
+(require 'ob-clojure)
 
 (extend-mode-map paredit-mode-map
   "C-f"         'forward-sexp
@@ -126,3 +127,9 @@ collection or symbol is at an extreme position, returns nil."
 	    (ac-cider-setup)))
 
 (put 'define-component 'clojure-backtracking-indent '(4 4 (2)))
+
+
+;; --------------------
+;; Orgmode
+
+(setq org-babel-clojure-backend 'cider)
