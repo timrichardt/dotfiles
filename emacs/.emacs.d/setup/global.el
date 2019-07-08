@@ -34,12 +34,14 @@
 ;; --------------------
 ;; Look
 
-(set-face-attribute 'default nil :font "Source Code Pro")
+;; (set-face-attribute 'default nil :font "Source Code Pro")
+
+(set-default-font "Source Code Pro")
 
 (defun text-scale-default ()
   "Reset the text scale to the default scaling 0."
   (interactive)
-  (text-scale-set 0))
+  (text-scale-set 2))
 
 (add-hook 'post-command-hook 'set-cursor-type-according-to-mode)
 

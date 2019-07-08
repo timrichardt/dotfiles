@@ -7,7 +7,7 @@
 (require 'inf-clojure)
 (require 'cider)
 (require 'cl)
-(require 'clj-refactor)
+;; (require 'clj-refactor)
 (require 'auto-complete)
 (require 'ac-cider)
 (require 'ob-clojure)
@@ -98,9 +98,9 @@ collection or symbol is at an extreme position, returns nil."
 (setq cider-prompt-for-symbol        nil
       cider-repl-use-pretty-printing t
       cider-repl-history-file        "~/.cider-repl-history"
-      cider-cljs-lein-repl           "(do (require 'figwheel-sidecar.repl-api)
-                                         (figwheel-sidecar.repl-api/start-figwheel!)
-                                         (figwheel-sidecar.repl-api/cljs-repl))"
+      ;; cider-cljs-lein-repl           "(do (require 'figwheel-sidecar.repl-api)
+      ;;                                    (figwheel-sidecar.repl-api/start-figwheel!)
+      ;;                                    (figwheel-sidecar.repl-api/cljs-repl))"
       inf-clojure-program            "lumo -d"
       nrepl-use-ssh-fallback-for-remote-hosts t)
 

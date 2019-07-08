@@ -16,7 +16,7 @@ alias ..='cd ..'
 # Go
 GOPATH=$HOME/.go
 
-PATH=$PATH:$HOME/bin:$HOME/.cargo/bin:§HOME/.go/bin
+PATH=$PATH:$HOME/bin:$HOME/.cargo/bin:$HOME/.go/bin:$HOME/.local/bin
 
 PS1='\u@\h:\w> '
 
@@ -57,3 +57,7 @@ export DATOMIC_CONNECTION_TYPE=:peer
 export DATOMIC_PEER_URL="datomic:dev://localhost:4334/hello" #tests
 export RSS_LOG_LEVEL=debug
 export MBA_NUM_PARALLEL_REQUESTS=2
+
+export CARP_DIR=~/github/Carp
+
+export JAVA_CMD=/usr/bin/java
