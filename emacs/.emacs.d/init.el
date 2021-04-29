@@ -1,11 +1,7 @@
-;; init.el
-
-(require 'package)
-(package-initialize)
-(require 'dash)
+;;; init.el
 
 ;; --------------------
-;; Disable menu, scroll bar, tool bar, cursor blinking
+;; disable menu, scroll bar, tool bar, cursor blinking
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -14,7 +10,7 @@
 (blink-cursor-mode -1)
 
 ;; --------------------
-;; Initial appearance
+;; start buffer
 
 (setq inhibit-startup-message t)
 
@@ -38,72 +34,37 @@
 " (shell-command-to-string "fortune -a")) "\n"))) '("" "")) "\n"))
 
 ;; --------------------
-;; Package repositories
+;; ensure use-package is installed from MELPA
 
-(defvar repos
-  '(("melpa" . "https://melpa.org/packages/")
-    ("org" . "http://orgmode.org/elpa/")))
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/") t)
 
-(defun add-repo
-    (repo)
-  (add-to-list 'package-archives repo t))
+(add-to-list 'package-archives
+	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
-(-each repos 'add-repo)
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (unless package-archive-contents (package-refresh-contents))
+  (package-install 'use-package))
+
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
 ;; --------------------
-;; Configurations
+;; globally used packages, settings, functions, ...
 
-(defvar setups
-  '("global"
-    "lisp"
-    "rust"
-    "secretary"
-    ;; "ess"
-    ))
+(use-package common
+  :load-path "conf/")
 
-(defun load-setup
-    (setup)
-  (require (intern setup)))
+(use-package lisps
+  :load-path "conf/")
 
-(add-to-list 'load-path (expand-file-name "setup" user-emacs-directory))
-(add-to-list 'exec-path "/home/tim/bin")
+(use-package rust
+  :load-path "conf/")
 
-(-each setups 'load-setup)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(TeX-view-program-selection
-   (quote (((output-dvi has-no-display-manager)
-	    "dvi2tty")
-	   ((output-dvi style-pstricks)
-	    "dvips and gv")
-	   (output-dvi "xdvi")
-	   (output-pdf "Okular")
-	   (output-html "xdg-open"))))
- 
- '(package-selected-packages
-   '(aggressive-indent
-     smex
-     inf-clojure
-     weather-metno
-     ido-yes-or-no
-     ido-at-point
-     flx-ido
-     ido-ubiquitous
-     ido-vertical-mode
-     undo-tree
-     subatomic-theme
-     rainbow-delimiters
-     org-agenda-property
-     magit
-     dash-functional
-     clj-refactor
-     alect-themes)))
-
-;; Mitigate Bug#28350 (security) in Emacs 25.2 and earlier.
-(eval-after-load "enriched"
-  '(defun enriched-decode-display-prop (start end &optional param)
-     (list start end)))
+(use-package tabak-theme
+  :load-path "conf/"
+  :config (tabak-toggle)
+  :bind (("<f12>" . tabak-toggle)))

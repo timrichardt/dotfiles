@@ -27,7 +27,7 @@ xterm*color13: #ec93d3
 xterm*color14: #93e0e3
 xterm*color15: #ffffff
 
-// Xft.dpi: 120
+Xft.dpi: 128
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull

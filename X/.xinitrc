@@ -26,7 +26,7 @@ redshift &
 #xinput --set-prop 12 'libinput Accel Profile Enabled' 0, 0
 #xinput --set-prop 12 'libinput Accel Profile Enabled Default' 0, 0
 
-# xmonad
+i3
 # xmonad
 
 # stumpwm
@@ -43,5 +43,5 @@ redshift &
 
 # exec mate-session
 
-startkde
+# startkde
 #XDG_SESSION_TYPE=wayland dbus-run-session startplasmacompositor
