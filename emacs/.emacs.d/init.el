@@ -66,5 +66,6 @@
 
 (use-package tabak-theme
   :load-path "conf/"
-  :config (tabak-toggle)
+  :commands (tabak-theme-dark)
+  :init (tabak-theme-dark)
   :bind (("<f12>" . tabak-toggle)))

@@ -73,14 +73,29 @@ TABAK-PALETTE."
     `((((background light)) ,light)
       (((background dark)) ,dark))))
 
+
+(defun tabak-theme-dark ()
+  "Enable tabak theme. Set FRAME-BACKGROUND-MODE to dark."
+  (interactive)
+  (setq frame-background-mode 'dark)
+  (mapc 'frame-set-background-mode (frame-list))
+  (enable-theme 'tabak))
+
+(defun tabak-theme-light ()
+  "Enable tabak theme. Set FRAME-BACKGROUND-MODE to light."
+  (interactive)
+  (setq frame-background-mode 'light)
+  (mapc 'frame-set-background-mode (frame-list))
+  (enable-theme 'tabak))
+
 (defun tabak-toggle ()
   "Toggles the display property FRAME-BACKGROUND-MODE between dark and
 light."
   (interactive)
   (setq frame-background-mode
-   (if (equal frame-background-mode 'dark)
-       'light
-     'dark))
+	(if (equal frame-background-mode 'dark)
+	    'light
+	  'dark))
   (mapc 'frame-set-background-mode (frame-list))
   (enable-theme 'tabak))
 
