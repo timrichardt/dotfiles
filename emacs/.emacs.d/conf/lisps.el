@@ -67,3 +67,14 @@ collection or symbol is at an extreme position, returns nil."
 (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
 
 (use-package slime)
+
+(use-package cider
+  :init (setq cider-prompt-for-symbol        nil
+	      cider-repl-use-pretty-printing t
+	      cider-repl-history-file        "~/.cider-repl-history"
+	      inf-clojure-program            "lumo -d"
+	      nrepl-use-ssh-fallback-for-remote-hosts t))
+
+(use-package clj-refactor
+  :init (cljr-add-keybindings-with-prefix "C-c C-m")
+  :hook ((clojure-mode) . clj-refactor-mode))
