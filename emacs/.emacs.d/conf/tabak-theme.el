@@ -1,22 +1,35 @@
+;;; tabak-theme.el --- A mellow theme with dark and light variants -*- lexical-binding: t -*-
+
+;; Copyright (C) 2015-2021 Tim Richardt
+
+;; Author: Tim Richardt <tim@richardt.io>
+;; URL: https://github.com/timrichardt/tabak-theme
+;; Keywords: faces
+;; Version: 2.0.1
+;; Package-Requires: ((emacs "24.1"))
+;; SPDX-License-Identifier: GPL-3.0-or-later
+
+;; This file is not part of GNU Emacs.
+
+;;; Commentary:
+
 ;;
 ;;              ████████╗ █████╗ ██████╗  █████╗ ██╗  ██╗
 ;;              ╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝
-;;                 ██║   ███████║██████╔╝███████║█████╔╝ 
-;;                 ██║   ██╔══██║██╔══██╗██╔══██║██╔═██╗ 
+;;                 ██║   ███████║██████╔╝███████║█████╔╝
+;;                 ██║   ██╔══██║██╔══██╗██╔══██║██╔═██╗
 ;;                 ██║   ██║  ██║██████╔╝██║  ██║██║  ██╗
 ;;                 ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 ;;                        C O L O R   T H E M E
-;;
-;; Copyright (C) 2015-2017 Tim Richardt <tim@snafu.cc>
-;; This work is free. You can redistribute it and/or modify it under the
-;; terms of the Do What The Fuck You Want To Public License, Version 2,
-;; as published by Sam Hocevar. See http://www.wtfpl.net/ for more
-;; details.
+;; 
+
+
+;;; Code:
 
 (deftheme tabak
-  "This is a dark/light Emacs color theme. The dark palette is a brownish
-variation of the famous zenburn. The light palette, in contrast, is
-higher in contrast.")
+  "A mellow color theme.
+The dark palette is a brownish variation of the famous zenburn. The light
+palette, in contrast, is higher in contrast.")
 
 (defvar tabak-palette
   '(("background-d" "#edd9ca" "#2e2926")
@@ -43,7 +56,8 @@ higher in contrast.")
     ("violet-d"     "#682485" "#897f94")
     ("violet"       "#842ea8" "#b4a9c2")
     ("violet-l"     "#a64bcc" "#ddd1ed"))
-  "Tabak color palette. The second and third column hold the values for
+  "The tabak color palette.
+The second and third column hold the values for
 the light and dark variant of the colorname in the first column.")
 
 (defsubst tabak-color-light (name)
@@ -55,9 +69,10 @@ the light and dark variant of the colorname in the first column.")
   (nth 2 (assoc name tabak-palette)))
 
 (defun tabak-face (&rest spec)
-  "Return a face specification. SPEC has to be a property list with face
-properties. Foreground and background have to have values of colornames of
-TABAK-PALETTE. TABAK-FACE evaluates to a face specification with display
+  "Return a face specification.
+SPEC has to be a property list with face
+properties.  Foreground and background have to have values of colornames of
+TABAK-PALETTE.  TABAK-FACE evaluates to a face specification with display
 properties dark and light and the colornames replaced by their values from
 TABAK-PALETTE."
   (let ((light (copy-sequence spec))
@@ -72,32 +87,6 @@ TABAK-PALETTE."
 
     `((((background light)) ,light)
       (((background dark)) ,dark))))
-
-
-(defun tabak-theme-dark ()
-  "Enable tabak theme. Set FRAME-BACKGROUND-MODE to dark."
-  (interactive)
-  (setq frame-background-mode 'dark)
-  (mapc 'frame-set-background-mode (frame-list))
-  (enable-theme 'tabak))
-
-(defun tabak-theme-light ()
-  "Enable tabak theme. Set FRAME-BACKGROUND-MODE to light."
-  (interactive)
-  (setq frame-background-mode 'light)
-  (mapc 'frame-set-background-mode (frame-list))
-  (enable-theme 'tabak))
-
-(defun tabak-toggle ()
-  "Toggles the display property FRAME-BACKGROUND-MODE between dark and
-light."
-  (interactive)
-  (setq frame-background-mode
-	(if (equal frame-background-mode 'dark)
-	    'light
-	  'dark))
-  (mapc 'frame-set-background-mode (frame-list))
-  (enable-theme 'tabak))
 
 (custom-theme-set-faces
  'tabak
@@ -1071,4 +1060,34 @@ light."
  `(cider-warning-highlight-face
    ,(tabak-face :foreground "violet")))
 
+;; --------------------
+;; commands to enable the theme, and toggle the theme variants
+
+(defun tabak-theme-dark ()
+  "Enable tabak theme.  Set FRAME-BACKGROUND-MODE to dark."
+  (interactive)
+  (setq frame-background-mode 'dark)
+  (mapc 'frame-set-background-mode (frame-list))
+  (enable-theme 'tabak))
+
+(defun tabak-theme-light ()
+  "Enable tabak theme.  Set FRAME-BACKGROUND-MODE to light."
+  (interactive)
+  (setq frame-background-mode 'light)
+  (mapc 'frame-set-background-mode (frame-list))
+  (enable-theme 'tabak))
+
+(defun tabak-theme-toggle ()
+  "Toggle the display property FRAME-BACKGROUND-MODE between dark and light."
+  (interactive)
+  (setq frame-background-mode
+	(if (equal frame-background-mode 'dark)
+	    'light
+	  'dark))
+  (mapc 'frame-set-background-mode (frame-list))
+  (enable-theme 'tabak))
+
+
 (provide-theme 'tabak)
+
+;;; tabak-theme.el ends here

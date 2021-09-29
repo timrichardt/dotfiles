@@ -64,8 +64,11 @@
 (use-package rust
   :load-path "conf/")
 
+(use-package lsp
+  :load-path "conf/")
+
 (use-package tabak-theme
   :load-path "conf/"
   :commands (tabak-theme-dark)
   :init (tabak-theme-dark)
-  :bind (("<f12>" . tabak-toggle)))
+  :bind (("<f12>" . tabak-theme-toggle)))
